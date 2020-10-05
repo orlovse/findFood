@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
-import { NewsCard } from "../../components";
-import { connect } from "react-redux";
-import { fetchRestaurantsAsync } from "../../redux/restaurants/action";
 import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+
+import { fetchRestaurantsAsync } from "../../redux/restaurants/action";
+import { NewsCard, RestaurantCard } from "../../components";
+
+import { Grid } from "@material-ui/core";
+
 
 const Main = ({actions, restaurants}) => {
     useEffect(() => {
@@ -13,7 +17,16 @@ const Main = ({actions, restaurants}) => {
         <div>
             Main
             <NewsCard />
-            {restaurants.map(item => <div key={item.restaurant_id}>{item.restaurant_name}</div>)}
+            <Grid container spacing={3}>
+                {restaurants.map(restaurant => 
+                    <Grid item xs={12} sm={6} md={4} key={restaurant.restaurant_id}>
+                        <RestaurantCard restaurant={restaurant}>
+                            {restaurant.restaurant_name}
+                        </RestaurantCard>
+                    </Grid>
+                )}
+            </Grid>
+
         </div>
     );
 };
