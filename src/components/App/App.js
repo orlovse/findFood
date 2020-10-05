@@ -1,9 +1,12 @@
 import React from "react";
+import { Main } from "../../pages";
+import { Container } from "@material-ui/core";
 
 export const App = () => {
     return (
-        <div>
+        <Container>
             App
-        </div>
+            <Main />
+        </Container>
     );
 }
