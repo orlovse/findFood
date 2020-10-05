@@ -10,7 +10,7 @@ import { Button,
 
 export const NewsCard = () => {
     return (
-      <Card>
+      <Card elevation={3}>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -30,10 +30,10 @@ export const NewsCard = () => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" variant="outlined">
             Share
           </Button>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" variant="outlined">
             Learn More
           </Button>
         </CardActions>
