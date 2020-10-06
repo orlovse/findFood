@@ -32,8 +32,7 @@ export const RestaurantCard = ({ restaurant }) => {
                 { address.formatted }
             </Typography>
           </CardContent>
-        </CardActionArea>
-        <CardActions>
+          <CardActions>
           <Button size="small" color="primary" variant="outlined">
             Share
           </Button>
@@ -41,6 +40,7 @@ export const RestaurantCard = ({ restaurant }) => {
             Learn More
           </Button>
         </CardActions>
+        </CardActionArea>
       </Card>        
     );
 }

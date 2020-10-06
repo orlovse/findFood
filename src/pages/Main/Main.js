@@ -10,9 +10,10 @@ import { Grid } from "@material-ui/core";
 
 const Main = ({actions, restaurants}) => {
     useEffect(() => {
-        console.log("useEff");
         actions.fetchRestaurantsAsync();
     }, [actions]);
+
+    console.log("restaurants",restaurants)
     return (
         <div>
             Main
@@ -31,11 +32,9 @@ const Main = ({actions, restaurants}) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        restaurants: state.restaurants
-    };
-};
+const mapStateToProps = (state) => ({
+    restaurants: state.restaurants
+});
 
 const mapDispatchToProps = (dispatch) => {
     return {
