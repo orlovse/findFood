@@ -6,6 +6,7 @@ import ControlPointOutlinedIcon from '@material-ui/icons/ControlPointOutlined';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 import { addMenuItem, removeMenuItem, deleteMenuItem } from "../../redux/order/actions";
+import { totalSelector, orderSelector } from "../../redux/order/selectors";
 
 
 const BasketProducts = ({ addMenuItem, removeMenuItem, deleteMenuItem, total, orderProducts}) => {
@@ -25,45 +26,34 @@ const BasketProducts = ({ addMenuItem, removeMenuItem, deleteMenuItem, total, or
                 </IconButton>              
             </div>
           ))
-        : null
+        : (
+            <div>
+                !Basket empty!
+            </div>
+        )
+    
+    const basket = total
+        ? (
+            <div>
+                {items}
+                total: {total} $
+            </div>
+        )
+        :  (<div>!Basket empty!</div>);
 
     return (
         <div>
             Basket
-            {items}
-            total: {total} $
+            {basket}
         </div>
     );
 };
 
 const mapStateToProps = (state) => {
-    const allProducts = state.restaurants.flatMap(
-        restaurant => restaurant.menu
-    );
-
-    const orderProducts = Object.keys(state.order)
-        .filter(productId => state.order[productId] > 0)
-        .map(productId => {
-            console.log("productId", productId)
-            return allProducts.find(product => +product.id === +productId)
-            
-
-        })
-        .map(product => {
-            console.log("product", product)
-            return {
-                product,
-                amount: state.order[product.id],
-                subtotal: state.order[product.id] * (+product.price)
-            }
-
-        });
-    const total = orderProducts.reduce((acc, { subtotal }) => acc + subtotal, 0);
     return {
-        total,
-        orderProducts
+        total: totalSelector(state),
+        orderProducts: orderSelector(state)
     };
-
 };
 
 const mapDispatchToProps = ({
