@@ -1,16 +1,16 @@
 import { ADD_MENU_ITEM, REMOVE_MENU_ITEM, DELETE_MENU_ITEM } from "./types";
 
-export const addMenuItem = (id) => ({
+export const addMenuItem = (restaurantId, menuOrder) => ({
     type: ADD_MENU_ITEM,
-    payload: { id }
+    payload: { restaurantId,  menuOrder }
 });
 
-export const removeMenuItem = (id) => ({
+export const removeMenuItem = (restaurantId, menuOrder) => ({
     type: REMOVE_MENU_ITEM,
-    payload: { id }
+    payload: { restaurantId,  menuOrder }
 });
 
-export const deleteMenuItem = (id) => ({
+export const deleteMenuItem = (restaurantId, menuOrder) => ({
     type: DELETE_MENU_ITEM,
-    payload: { id }
+    payload: { restaurantId,  menuOrder }
 });

@@ -13,10 +13,10 @@ import ControlPointOutlinedIcon from '@material-ui/icons/ControlPointOutlined';
 
 import { addMenuItem, removeMenuItem } from "../../redux/order/actions";
 
-const MenuItem = ({menuItem, amount, addMenuItem, removeMenuItem}) => {
+const MenuItem = ({menuItem, amount, addMenuItem, removeMenuItem, restaurantId}) => {
 
     return (
-        <Card key={menuItem.id} style={{margin: "20px"}}>
+        <Card key={menuItem.menu_order} style={{margin: "20px"}}>
             <Grid container>
                 <Grid item xs={8}>
                     <CardContent>
@@ -32,11 +32,11 @@ const MenuItem = ({menuItem, amount, addMenuItem, removeMenuItem}) => {
                                     {menuItem.price} $
                                 </Grid>
                                 <Grid item>
-                                    <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => addMenuItem(menuItem.id)}>
+                                    <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => addMenuItem(restaurantId, menuItem.menu_order)}>
                                         <ControlPointOutlinedIcon />
                                     </IconButton>
                                     {amount} 
-                                    <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => removeMenuItem(menuItem.id)}>
+                                    <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => removeMenuItem(restaurantId, menuItem.menu_order)}>
                                         <RemoveCircleOutlineIcon />
                                     </IconButton>
                                 </Grid>
@@ -59,9 +59,21 @@ const MenuItem = ({menuItem, amount, addMenuItem, removeMenuItem}) => {
     );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-        amount: state.order[ownProps.menuItem.id] || 0
-});
+const mapStateToProps = (state, ownProps) => {
+    const restaurantId = ownProps.restaurantId || null;
+    const menu_order = ownProps.menuItem.menu_order || null;
+    let order = 0;
+    if(state.order && state.order[restaurantId] && state.order[restaurantId][menu_order]) {
+        order = state.order[restaurantId][menu_order] || 0
+    }
+
+    return {
+        amount: order
+    }
+
+
+
+};
 
 const mapDispatchToProps = ({
     addMenuItem,

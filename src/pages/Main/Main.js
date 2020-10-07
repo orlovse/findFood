@@ -20,9 +20,9 @@ const Main = ({actions, restaurants}) => {
             <NewsCard />
             <Grid container spacing={3}>
                 {restaurants.map(restaurant => 
-                    <Grid item xs={12} sm={6} md={4} key={restaurant.restaurant_id}>
+                    <Grid item xs={12} sm={6} md={4} key={restaurant.id}>
                         <RestaurantCard restaurant={restaurant}>
-                            {restaurant.restaurant_name}
+                            {restaurant.name}
                         </RestaurantCard>
                     </Grid>
                 )}

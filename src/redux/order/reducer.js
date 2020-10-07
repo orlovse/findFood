@@ -4,21 +4,41 @@ const initState = {};
 
 export const orderReducer = (state = initState, action) => {
     const { type, payload } = action;
+
+    let amount = 0;
+    if(payload){
+        amount = state[payload.restaurantId]
+        ? state[payload.restaurantId][payload.menuOrder] 
+            ? state[payload.restaurantId][payload.menuOrder] 
+            : 0
+        : 0
+    }
+
     switch(type) {
         case ADD_MENU_ITEM:
+
             return { 
                 ...state, 
-                [payload.id]: (state[payload.id] || 0 ) + 1
+                [payload.restaurantId]: {
+                    ...state[payload.restaurantId],
+                    [payload.menuOrder]: amount + 1
+                }
             };
         case REMOVE_MENU_ITEM:
             return { 
                 ...state, 
-                [payload.id]: Math.max((state[payload.id] || 0 ) - 1, 0 )
+                [payload.restaurantId]: {
+                    ...state[payload.restaurantId],
+                    [payload.menuOrder]: Math.max(amount - 1, 0 )
+                }
             };
         case DELETE_MENU_ITEM:
             return {
                 ...state,
-                [payload.id]: 0
+                [payload.restaurantId]: {
+                    ...state[payload.restaurantId],
+                    [payload.menuOrder]: 0
+                }
             }
         default: 
             return state;

@@ -6,35 +6,45 @@ import { Grid } from "@material-ui/core";
 
 import { BasketProducts ,MenuItem } from "../../components";
 import { fetchRestaurantAsync } from "../../redux/restaurant/action"
+import { fetchMenuAsync } from "../../redux/menu/action";
 
-const Restaurant = ({restaurant, actions}) => {
+const Restaurant = ({restaurant, actions, menu}) => {
     const { id } = useParams();
     useEffect(() => {
         console.log("useEff2");
         actions.fetchRestaurantAsync(id);
     }, [id, actions])
 
+    useEffect(() => {
+        actions.fetchMenuAsync(id)
+    }, [id, actions])
 
-    let restaurant_name = "";
+
+    let name = "";
     let restaurant_phone = "";
     if(restaurant) {
-        restaurant_name = restaurant.restaurant_name;
+        name = restaurant.name;
         restaurant_phone = restaurant.restaurant_phone;
     } else {
         return <div>loading...</div>
     }
 
 
+    if(menu){
+        console.log("menu", menu)
+    }
+
+
     return (
         <>
-            <h1>{restaurant_name} </h1>
+            <h1>{name} </h1>
 
         <Grid container spacing={5}>
             <Grid item md={3}>
                 <BasketProducts />
             </Grid>
             <Grid item md={6}>
-                {restaurant.menu.map((menuItem, i) => <MenuItem menuItem={menuItem} key={i} /> )}
+                {menu.map((menuItem, i) => <MenuItem menuItem={menuItem} restaurantId={restaurant.id} key={i} /> )}
             </Grid>
             <Grid item md={3}>
                 <h2>Address</h2>
@@ -51,12 +61,13 @@ const Restaurant = ({restaurant, actions}) => {
 };
 
 const mapStateToProps = (state) => ({
-        restaurant: state.restaurant.restaurant
+        restaurant: state.restaurant.restaurant,
+        menu: state.menu.menu
 }); 
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        actions: bindActionCreators({ fetchRestaurantAsync }, dispatch)
+        actions: bindActionCreators({ fetchRestaurantAsync , fetchMenuAsync}, dispatch)
     }
 };
 

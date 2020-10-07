@@ -8,20 +8,18 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { addMenuItem, removeMenuItem, deleteMenuItem } from "../../redux/order/actions";
 import { totalSelector, orderSelector } from "../../redux/order/selectors";
 
-
-const BasketProducts = ({ addMenuItem, removeMenuItem, deleteMenuItem, total, orderProducts}) => {
-    console.log("orderProducts", orderProducts)
+const BasketProducts = ({ addMenuItem, removeMenuItem, deleteMenuItem, orderProducts, total=10}) => {
     const items = orderProducts
         ? orderProducts.map(item => (
-            <div key={item.product.id}> 
+            <div key={item.product.menu_order}> 
                 {item.product.name} - {item.amount} - {item.subtotal}
-                <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => addMenuItem(item.product.id)}>
+                <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => addMenuItem(item.restaurantId, item.product.menu_order)}>
                     <ControlPointOutlinedIcon />
                 </IconButton>
-                <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => removeMenuItem(item.product.id)}>
+                <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => removeMenuItem(item.restaurantId, item.product.menu_order)}>
                     <RemoveCircleOutlineIcon />
                 </IconButton>    
-                <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => deleteMenuItem(item.product.id)}>
+                <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => deleteMenuItem(item.restaurantId, item.product.menu_order)}>
                     <HighlightOffIcon />
                 </IconButton>              
             </div>
