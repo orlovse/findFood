@@ -1,10 +1,11 @@
-import { FILL_RESTAURANTS } from "./types";
+import { LOAD_RESTAURANTS } from "./constants";
 
 export const restaurantsReducer = (state = [], action) => {
-    console.log("restaurants reducer", action.payload)
-    switch(action.type) {
-        case FILL_RESTAURANTS:
-            return action.payload;
+    const { type, response } = action;
+
+    switch(type) {
+        case LOAD_RESTAURANTS:
+            return response;
         default:
             return state;
     }

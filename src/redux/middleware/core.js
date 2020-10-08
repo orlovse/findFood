@@ -1,7 +1,8 @@
-import { applyMiddleware, compose } from "redux";
+import { applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 
-const middleware = [thunk];
+import api from "./api";
 
-export const enhancedStore = composeWithDevTools(applyMiddleware(...middleware));
+
+export const enhancedStore = composeWithDevTools(applyMiddleware(thunk, api));

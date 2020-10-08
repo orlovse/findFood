@@ -10,8 +10,8 @@ import { totalSelector, orderSelector } from "../../redux/order/selectors";
 
 const BasketProducts = ({ addMenuItem, removeMenuItem, deleteMenuItem, orderProducts, total=10}) => {
     const items = orderProducts
-        ? orderProducts.map(item => (
-            <div key={item.product.menu_order}> 
+        ? orderProducts.map((item, i) => (
+            <div key={i}> 
                 {item.product.name} - {item.amount} - {item.subtotal}
                 <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => addMenuItem(item.restaurantId, item.product.menu_order)}>
                     <ControlPointOutlinedIcon />

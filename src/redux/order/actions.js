@@ -1,4 +1,4 @@
-import { ADD_MENU_ITEM, REMOVE_MENU_ITEM, DELETE_MENU_ITEM } from "./types";
+import { ADD_MENU_ITEM, REMOVE_MENU_ITEM, DELETE_MENU_ITEM } from "./constants";
 
 export const addMenuItem = (restaurantId, menuOrder) => ({
     type: ADD_MENU_ITEM,

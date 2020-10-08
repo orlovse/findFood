@@ -1,9 +1,10 @@
-import { FILL_MENU } from "./types";
+import { LOAD_MENU } from "./constants";
 
 export const menuReducer = (state = [], action) => {
-    switch(action.type) {
-        case FILL_MENU:
-            return action.payload;
+    const {type, response} = action;
+    switch(type) {
+        case LOAD_MENU:
+            return response;
         default:
             return state;
     }

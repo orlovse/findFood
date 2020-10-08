@@ -1,14 +1,6 @@
-import {FILL_MENU, FETCH_MENU_ASYNC} from "./types";
-import { api } from "../REST/api";
+import { LOAD_MENU } from "./constants";
 
-export const fillMenu = (menu) => {
-    return {
-        type: FILL_MENU,
-        payload: menu
-    };
-};
-
-export const fetchMenuAsync = (id) => async (dispatch) => {
-    const result = api.menu.fetch();
-    dispatch(fillMenu(result))
-};
+export const loadMenu = (id) => ({
+    type: LOAD_MENU,
+    CallAPI: "/menu/" + id
+});
