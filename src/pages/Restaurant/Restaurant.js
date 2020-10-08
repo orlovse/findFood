@@ -5,32 +5,23 @@ import { Grid } from "@material-ui/core";
 
 import { loadRestaurant } from "../../redux/restaurant/action"
 import { loadMenu } from "../../redux/menu/action";
-import { menuSelector, menuLoadingSelector } from "../../redux/menu/selectors";
-import { restaurantSelector, restaurantLoadingSelector } from "../../redux/restaurant/selectors";
+import { menuSelector, menuLoadingSelector, menuLoadedSelector } from "../../redux/menu/selectors";
+import { restaurantSelector, restaurantLoadingSelector, restaurantLoadedSelector } from "../../redux/restaurant/selectors";
 
 import { BasketProducts ,MenuItem } from "../../components";
 
-const Restaurant = ({restaurant, menu, loadRestaurant, loadMenu, restaurantLoading, menuLoading}) => {
+const Restaurant = ({restaurant, menu, loadRestaurant, loadMenu, restaurantLoading, menuLoading, restaurantLoaded, menuLoaded}) => {
     const { id } = useParams();
-    useEffect(() => {
-        loadRestaurant(id);
-    }, [])
 
     useEffect(() => {
-        loadMenu(id)
-    }, [])
+        if(!restaurantLoading && !restaurantLoaded) loadRestaurant(id);
+    }, []);
 
+    useEffect(() => {
+        if(!menuLoading && !menuLoaded) loadMenu(id)
+    }, []);
 
-    // let name = "";
-    // let restaurant_phone = "";
-    // if(restaurant) {
-    //     name = restaurant.name;
-    //     restaurant_phone = restaurant.restaurant_phone;
-    // } else {
-    //     return <div>loading...</div>
-    // }
-
-    const restaurantElem = restaurantLoading
+    const restaurantElem = restaurantLoading || !restaurantLoaded
         ? <div>Restaurant loading...</div>
         : (
             <>
@@ -42,10 +33,9 @@ const Restaurant = ({restaurant, menu, loadRestaurant, loadMenu, restaurantLoadi
             </>
         );
 
-    const menuElem = menuLoading
+    const menuElem = menuLoading || !menuLoaded
         ? <div>Menu loading...</div>
         : menu.map((menuItem, i) => <MenuItem menuItem={menuItem} restaurantId={restaurant.id} key={i} /> )
-
 
     return (
         <>
@@ -67,8 +57,10 @@ const Restaurant = ({restaurant, menu, loadRestaurant, loadMenu, restaurantLoadi
 const mapStateToProps = (state) => ({
         restaurant: restaurantSelector(state),
         restaurantLoading: restaurantLoadingSelector(state),
+        restaurantLoaded: restaurantLoadedSelector(state),
         menu: menuSelector(state),
-        menuLoading: menuLoadingSelector(state)
+        menuLoading: menuLoadingSelector(state),
+        menuLoaded: menuLoadedSelector(state)
 }); 
 
 export default connect(mapStateToProps, {loadRestaurant, loadMenu })(Restaurant)
