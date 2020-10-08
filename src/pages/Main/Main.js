@@ -2,18 +2,21 @@ import React, { useEffect } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
-import { loadRestaurants } from "../../redux/restaurants/action";
-import { NewsCard, RestaurantCard } from "../../components";
-
 import { Grid } from "@material-ui/core";
 
+import { loadRestaurants } from "../../redux/restaurants/action";
+import { restaurantsSelector, restaurantsLoadingSelector } from "../../redux/restaurants/selectors";
+import { NewsCard, RestaurantCard } from "../../components";
 
-const Main = ({loadRestaurants, restaurants}) => {
+
+
+
+const Main = ({loadRestaurants, restaurants, loading}) => {
     useEffect(() => {
         loadRestaurants();
     }, []);
     
-    console.log("restaurants",restaurants)
+    if(loading) return <div>Loading...</div>
     const r = restaurants
         ? restaurants.map(restaurant => 
             <Grid item xs={12} sm={6} md={4} key={restaurant.id}>
@@ -38,7 +41,8 @@ const Main = ({loadRestaurants, restaurants}) => {
 };
 
 const mapStateToProps = (state) => ({
-    restaurants: state.restaurants
+    restaurants: restaurantsSelector(state),
+    loading: restaurantsLoadingSelector(state)
 });
 
 // const mapDispatchToProps = (dispatch) => {

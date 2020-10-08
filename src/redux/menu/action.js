@@ -1,4 +1,4 @@
-import { LOAD_MENU } from "./constants";
+import { LOAD_MENU } from "../constants";
 
 export const loadMenu = (id) => ({
     type: LOAD_MENU,

@@ -1,5 +1,5 @@
 import produce from "immer";
-import { ADD_MENU_ITEM, REMOVE_MENU_ITEM, DELETE_MENU_ITEM } from "./constants";
+import { ADD_MENU_ITEM, REMOVE_MENU_ITEM, DELETE_MENU_ITEM } from "../constants";
 
 export const orderReducer = (state = {}, action) => {
     const { type, payload } = action;

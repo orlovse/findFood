@@ -1,4 +1,4 @@
-import { LOAD_RESTAURANT } from "./constants";
+import { LOAD_RESTAURANT } from "../constants";
 
 export const loadRestaurant = (id) => ({
     type: LOAD_RESTAURANT,

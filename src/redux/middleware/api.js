@@ -1,3 +1,5 @@
+import { SUCCESS, REQUEST, FAILURE } from "../constants";
+
 const ROOT_URL = "https://us-restaurant-menus.p.rapidapi.com";
 const HOST = process.env.REACT_APP_HOST_RAPID;
 const KEY = process.env.REACT_APP_KEY_RAPID;
@@ -5,15 +7,23 @@ const KEY = process.env.REACT_APP_KEY_RAPID;
 export default state => next => async action => {
     if(!action.CallAPI) return next(action);
 
-    const {CallAPI, ...rest} = action;
+    const {CallAPI, type, ...rest} = action;
 
-    // const response = await fetch(ROOT_URL + CallAPI, {
-    //             method: "GET",
-    //             headers: {
-    //                 "x-rapidapi-host": HOST,
-    //                 "x-rapidapi-key": KEY
-    //             }
-    // }).then(res => res.json());
+    next({...rest, type: type + REQUEST});
+
+    // try {
+    //     const response = await fetch(ROOT_URL + CallAPI, {
+    //         method: "GET",
+    //         headers: {
+    //             "x-rapidapi-host": HOST,
+    //             "x-rapidapi-key": KEY
+    //         }
+    //     }).then(res => res.json());
+    //     next({...rest, type: type + SUCCESS, response});
+    // } catch (error) {
+    //     next({...rest, type: type + FAILURE, error});
+    // }
+
 
     let response = [];
     if(CallAPI === "/restaurants/search") {
@@ -61,6 +71,7 @@ export default state => next => async action => {
     }
 
     if(CallAPI === "/menu/1"){
+        console.log("render test")
         response = [
             {
                 menu_order: 111,
@@ -121,5 +132,5 @@ export default state => next => async action => {
         ]
     }
 
-    return next({...rest, response});
+    next({...rest, type: type + SUCCESS, response});
 }

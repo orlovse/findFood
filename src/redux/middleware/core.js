@@ -4,5 +4,4 @@ import thunk from "redux-thunk";
 
 import api from "./api";
 
-
 export const enhancedStore = composeWithDevTools(applyMiddleware(thunk, api));
