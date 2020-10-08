@@ -1,46 +1,47 @@
+import produce from "immer";
 import { ADD_MENU_ITEM, REMOVE_MENU_ITEM, DELETE_MENU_ITEM } from "./types";
 
-const initState = {};
-
-export const orderReducer = (state = initState, action) => {
+export const orderReducer = (state = {}, action) => {
     const { type, payload } = action;
-
-    let amount = 0;
-    if(payload){
-        amount = state[payload.restaurantId]
-        ? state[payload.restaurantId][payload.menuOrder] 
-            ? state[payload.restaurantId][payload.menuOrder] 
-            : 0
-        : 0
-    }
 
     switch(type) {
         case ADD_MENU_ITEM:
+            return produce(state, draft => {
+                    if(!draft[payload.restaurantId]) {
+                        draft[payload.restaurantId] = {};
+                    }
 
-            return { 
-                ...state, 
-                [payload.restaurantId]: {
-                    ...state[payload.restaurantId],
-                    [payload.menuOrder]: amount + 1
-                }
-            };
+                    if(!draft[payload.restaurantId][payload.menuOrder]) {
+                        draft[payload.restaurantId][payload.menuOrder] = 0;
+                    }
+                    
+                    draft[payload.restaurantId][payload.menuOrder] = draft[payload.restaurantId][payload.menuOrder] + 1;
+            });
         case REMOVE_MENU_ITEM:
-            return { 
-                ...state, 
-                [payload.restaurantId]: {
-                    ...state[payload.restaurantId],
-                    [payload.menuOrder]: Math.max(amount - 1, 0 )
-                }
-            };
+            return produce(state, draft => {
+                    if(!draft[payload.restaurantId]) {
+                        draft[payload.restaurantId] = {};
+                    }
+
+                    if(!draft[payload.restaurantId][payload.menuOrder]) {
+                        draft[payload.restaurantId][payload.menuOrder] = 0;
+                    }
+                    
+                    draft[payload.restaurantId][payload.menuOrder] = Math.max(draft[payload.restaurantId][payload.menuOrder] - 1, 0);
+            });
         case DELETE_MENU_ITEM:
-            return {
-                ...state,
-                [payload.restaurantId]: {
-                    ...state[payload.restaurantId],
-                    [payload.menuOrder]: 0
+            return produce(state, draft => {
+                if(!draft[payload.restaurantId]) {
+                    draft[payload.restaurantId] = {};
                 }
-            }
+
+                if(!draft[payload.restaurantId][payload.menuOrder]) {
+                    draft[payload.restaurantId][payload.menuOrder] = 0;
+                }
+                
+                draft[payload.restaurantId][payload.menuOrder] = 0;
+            });
         default: 
             return state;
     }
-}
+};

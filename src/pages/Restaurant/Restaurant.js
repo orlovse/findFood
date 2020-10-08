@@ -61,8 +61,8 @@ const Restaurant = ({restaurant, actions, menu}) => {
 };
 
 const mapStateToProps = (state) => ({
-        restaurant: state.restaurant.restaurant,
-        menu: state.menu.menu
+        restaurant: state.restaurant,
+        menu: state.menu
 }); 
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,15 +1,11 @@
-// import { fromJS } from "immutable";
 import { FILL_RESTAURANT } from "./types";
 
-// const initState = fromJS({});
 
 export const restaurantReducer = (state = {}, action) => {
-    switch(action.type) {
+    const { payload, type} = action;
+    switch(type) {
         case FILL_RESTAURANT:
-            return {
-                ...state, 
-                restaurant: action.payload
-            }
+            return payload;
 
         default: 
             return state;

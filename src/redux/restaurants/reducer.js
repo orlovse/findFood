@@ -1,12 +1,10 @@
-import { List } from "immutable";
 import { FILL_RESTAURANTS } from "./types";
 
-const initState = List();
-
-export const restaurantsReducer = (state = initState, action) => {
+export const restaurantsReducer = (state = [], action) => {
+    console.log("restaurants reducer", action.payload)
     switch(action.type) {
         case FILL_RESTAURANTS:
-            return List(action.payload.data);
+            return action.payload;
         default:
             return state;
     }

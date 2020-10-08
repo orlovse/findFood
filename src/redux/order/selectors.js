@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 import { fetchRestaurantsAsync } from "../restaurants/action";
 
-const menuSelector = state => state.menu.menu;
+const menuSelector = state => state.menu;
 const ordersSelector = state => state.order;
 
 
