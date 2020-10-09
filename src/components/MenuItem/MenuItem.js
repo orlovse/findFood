@@ -26,26 +26,23 @@ const MenuItem = ({menuItem, amount, addMenuItem, removeMenuItem, restaurantId})
                         <Typography variant="subtitle1" color="textSecondary">
                             {menuItem.description}
                         </Typography>
-                        <Typography variant="subtitle1" color="primary">
-                            <Grid container justify="space-between" alignItems="center">                              
+                    </CardContent>
+                    <Typography variant="subtitle1" color="primary">
+                            <Grid container justify="space-around" alignItems="center">                              
                                 <Grid item>
                                     {menuItem.price} $
                                 </Grid>
                                 <Grid item>
-                                    <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => addMenuItem(restaurantId, menuItem.menu_order)}>
-                                        <ControlPointOutlinedIcon />
-                                    </IconButton>
-                                    {amount} 
                                     <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => removeMenuItem(restaurantId, menuItem.menu_order)}>
                                         <RemoveCircleOutlineIcon />
                                     </IconButton>
+                                    {amount} 
+                                    <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => addMenuItem(restaurantId, menuItem.menu_order)}>
+                                        <ControlPointOutlinedIcon />
+                                    </IconButton>
                                 </Grid>
                             </Grid>
-
                         </Typography>
-
-
-                    </CardContent>
                 </Grid>
                 <Grid item xs={4}>
                     <CardMedia

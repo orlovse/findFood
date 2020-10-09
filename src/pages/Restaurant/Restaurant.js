@@ -82,14 +82,14 @@ const Restaurant = ({
     return (
         <>
             <Grid container spacing={5}>
-                <Grid item md={3}>
-                    <BasketProducts />
+                <Grid item xs={12} sm={12} lg={3} style={{textAlign: "center"}}>
+                    {restaurantElem}
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={12} sm={7} lg={6} style={{textAlign: "center"}}>
                     {menuElem}
                 </Grid>
-                <Grid item md={3}>
-                    {restaurantElem}
+                <Grid item xs={12} sm={5} lg={3} style={{textAlign: "center"}}>
+                    <BasketProducts />
                 </Grid>
             </Grid>
         </>

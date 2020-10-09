@@ -1,21 +1,30 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import { Container } from "@material-ui/core";
+import { Container, makeStyles } from "@material-ui/core";
 
 import { Main, Restaurant } from "../../pages";
 import { Header } from "../Header";
+import { Bottom } from "../Bottom";
+
+const useStyles = makeStyles(() => ({
+  container: {
+    marginTop: "100px",
+  }
+}));
 
 export const App = () => {
+  const classes = useStyles();
   return (
     <>
       <Header />
-      <Container>
+      <Container className={classes.container}>
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/restaurants/:id" component={Restaurant} />
         </Switch>
       </Container>
+      <Bottom />
     </>
   );
 }

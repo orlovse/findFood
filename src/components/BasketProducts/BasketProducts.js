@@ -1,6 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { IconButton } from "@material-ui/core";
+import { Button,
+    Grid, 
+    IconButton, 
+    Paper, 
+    makeStyles 
+} from "@material-ui/core";
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import ControlPointOutlinedIcon from '@material-ui/icons/ControlPointOutlined';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
@@ -8,42 +13,67 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { addMenuItem, removeMenuItem, deleteMenuItem } from "../../redux/order/actions";
 import { totalSelector, orderSelector } from "../../redux/order/selectors";
 
+
+const useStyles = makeStyles(() => ({
+    paper: {
+        padding: "40px",
+        textAlign: "center",
+        position: "fixed",
+        ['@media (max-width:600px)']: { // eslint-disable-line no-useless-computed-key
+            position: "relative"
+        }
+    },
+    bluColor: {
+        color: "#3F51B5"
+    },
+    redColor: {
+        color: "#e84d32"
+    },
+    buttonsPadding: {
+        padding: 5
+    }
+}));
+
 const BasketProducts = ({ addMenuItem, removeMenuItem, deleteMenuItem, orderProducts, total=10}) => {
-    const items = orderProducts
-        ? orderProducts.map((item, i) => (
-            <div key={i}> 
-                {item.product.name} - {item.amount} - {item.subtotal}
-                <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => addMenuItem(item.restaurantId, item.product.menu_order)}>
-                    <ControlPointOutlinedIcon />
-                </IconButton>
-                <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => removeMenuItem(item.restaurantId, item.product.menu_order)}>
-                    <RemoveCircleOutlineIcon />
-                </IconButton>    
-                <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => deleteMenuItem(item.restaurantId, item.product.menu_order)}>
-                    <HighlightOffIcon />
-                </IconButton>              
-            </div>
-          ))
-        : (
-            <div>
-                !Basket empty!
-            </div>
-        )
-    
+    const classes = useStyles();
+
     const basket = total
         ? (
-            <div>
-                {items}
-                total: {total} $
+            <div >
+                {orderProducts.map((item, i) => (
+                    <Grid container key={i} justify="space-between" alignItems="center" spacing={3}> 
+                        <Grid item>
+                            {item.product.name} * {item.amount} = <span className={classes.bluColor}>{item.subtotal} $</span> 
+                        </Grid>
+                        <Grid item>
+                            <IconButton color="primary"  className={classes.buttonsPadding} onClick={() => removeMenuItem(item.restaurantId, item.product.menu_order)}>
+                                <RemoveCircleOutlineIcon />
+                            </IconButton>    
+                            <IconButton color="primary"  className={classes.buttonsPadding} onClick={() => addMenuItem(item.restaurantId, item.product.menu_order)}>
+                                <ControlPointOutlinedIcon />
+                            </IconButton>
+                            <IconButton className={classes.redColor} onClick={() => deleteMenuItem(item.restaurantId, item.product.menu_order)}>
+                                <HighlightOffIcon />
+                            </IconButton>  
+                        </Grid>
+            
+                    </Grid>
+                ))}
+                <h2>
+                    total: <span className={classes.bluColor}>{total} $</span>
+                </h2>
+                <Button variant="contained" color="primary">
+                    Bay
+                </Button>
             </div>
         )
-        :  (<div>!Basket empty!</div>);
+        : <div>Select a meal</div>;
 
     return (
-        <div>
-            Basket
+        <Paper elevation={3} className={classes.paper}>
+            <h2>User Basket</h2> 
             {basket}
-        </div>
+        </Paper>
     );
 };
 

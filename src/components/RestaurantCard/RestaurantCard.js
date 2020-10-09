@@ -1,27 +1,43 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button,
-         Card, 
+import { Card, 
          CardActionArea, 
-         CardActions,
          CardContent,
          CardMedia,
-         Typography
-} from "@material-ui/core"
+         Typography,
+         makeStyles
+} from "@material-ui/core";
+
+const useStyles = makeStyles(() => ({
+  img: {
+    transition: "2s",
+    "&:hover": {
+        transform:"scale(1.1, 1.1)"
+    },
+  },
+
+  imgWrapper: {
+    overflow: "hidden",
+  }
+}))
 
 export const RestaurantCard = ({ restaurant }) => {
     const { address, name, id } = restaurant;
+    const classes = useStyles();
     return (
       <Card elevation={3}>
         <CardActionArea>
           <Link to={`/restaurants/${id}`}>
-            <CardMedia
-              component="img"
-              alt={name}
-              height="140"
-              image="https://eatforum.org/content/uploads/2018/05/table_with_food_top_view_900x700.jpg"
-              title={name}
-            />
+            <div className={classes.imgWrapper}>
+              <CardMedia
+                component="img"
+                alt={name}
+                height="140"
+                image="https://eatforum.org/content/uploads/2018/05/table_with_food_top_view_900x700.jpg"
+                title={name}
+                className={classes.img}
+              />
+            </div>
           </Link>
 
           <CardContent>
@@ -29,19 +45,10 @@ export const RestaurantCard = ({ restaurant }) => {
               {name}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-                { address.formatted }
+              { address }
             </Typography>
           </CardContent>
-
         </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary" variant="outlined">
-            Share
-          </Button>
-          <Button size="small" color="primary" variant="outlined">
-            Learn More
-          </Button>
-        </CardActions>
       </Card>        
     );
-}
+};

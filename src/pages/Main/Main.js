@@ -1,12 +1,20 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
-import { Grid } from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import Skeleton from '@material-ui/lab/Skeleton';
 
 import { loadRestaurants } from "../../redux/restaurants/action";
 import { restaurantsSelector, restaurantsLoadingSelector, restaurantsLoadedSelector } from "../../redux/restaurants/selectors";
 import { NewsCard, RestaurantCard } from "../../components";
+
+const useStyles = makeStyles(() => ({
+    restaurants: {
+        margin: 0,
+        width: "100%",
+        marginTop: "50px",
+    }
+}));
 
 const Main = ({
         loadRestaurants, 
@@ -14,6 +22,8 @@ const Main = ({
         restaurantsLoading, 
         restaurantsLoaded
     }) => {
+
+    const classes = useStyles();
 
     useEffect(() => {
        if(!restaurantsLoading && !restaurantsLoaded) loadRestaurants(); // eslint-disable-next-line
@@ -44,14 +54,12 @@ const Main = ({
         );
 
     return (
-        <div>
-            Main
+        <>
             <NewsCard />
-            <Grid container spacing={3}>
+            <Grid container spacing={3} className={classes.restaurants}>
                 {restaurantsElement}
             </Grid>
-
-        </div>
+        </>
     );
 };
 
