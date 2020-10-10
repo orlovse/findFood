@@ -45,7 +45,7 @@ export const RestaurantCard = ({ restaurant }) => {
               {name}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              { address }
+              { address.street }
             </Typography>
           </CardContent>
         </CardActionArea>

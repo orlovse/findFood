@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 
 import { Container, makeStyles } from "@material-ui/core";
 
-import { Main, Restaurant } from "../../pages";
+import { Checkout, Main, Restaurant } from "../../pages";
 import { Header } from "../Header";
 import { Bottom } from "../Bottom";
 
@@ -22,6 +22,7 @@ export const App = () => {
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/restaurants/:id" component={Restaurant} />
+          <Route exact path="/checkout" component={Checkout} />
         </Switch>
       </Container>
       <Bottom />

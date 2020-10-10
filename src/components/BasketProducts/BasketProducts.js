@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { Button,
     Grid, 
     IconButton, 
@@ -23,6 +24,10 @@ const useStyles = makeStyles(() => ({
             position: "relative"
         }
     },
+    paperCheckout: {
+        padding: "40px",
+        textAlign: "center",
+    },
     bluColor: {
         color: "#3F51B5"
     },
@@ -34,8 +39,10 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const BasketProducts = ({ addMenuItem, removeMenuItem, deleteMenuItem, orderProducts, total=10}) => {
+const BasketProducts = ({ addMenuItem, removeMenuItem, deleteMenuItem, orderProducts, total, checkout = false}) => {
     const classes = useStyles();
+
+    const paperClass = checkout ? classes.paperCheckout : classes.paper;
 
     const basket = total
         ? (
@@ -62,15 +69,17 @@ const BasketProducts = ({ addMenuItem, removeMenuItem, deleteMenuItem, orderProd
                 <h2>
                     total: <span className={classes.bluColor}>{total} $</span>
                 </h2>
-                <Button variant="contained" color="primary">
-                    Bay
-                </Button>
+                <Link to="/checkout" style={{textDecoration : "none"}}>
+                    <Button variant="contained" color="primary">
+                        Buy
+                    </Button>
+                </Link>
             </div>
         )
         : <div>Select a meal</div>;
 
     return (
-        <Paper elevation={3} className={classes.paper}>
+        <Paper elevation={3} className={paperClass}>
             <h2>User Basket</h2> 
             {basket}
         </Paper>

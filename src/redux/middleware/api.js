@@ -32,7 +32,17 @@ export default state => next => async action => {
                 {
                     id: 1, 
                     name: "Aaaa",
-                    address: "1aaa",
+                    geo:{
+                        longitude: "9.1973839",
+                        latitude: "45.4816707"
+                    },
+                    address:{
+                        street:"Via Vincenzo Viviani, 2",
+                        postalCode:"20124",
+                        locality:"Milan",
+                        country:"Italy",
+                    },
+                    currenciesAccepted:"EUR",
                 },
                 {
                     id: 2, 
@@ -66,7 +76,17 @@ export default state => next => async action => {
         response = {
             id: 1, 
             name: "Aaaa",
-            address: "1aaa",
+            geo:{
+                longitude: 9.1973839,
+                latitude: 45.4816707
+            },
+            address:{
+                street:"Via Vincenzo Viviani, 2",
+                postalCode:"20124",
+                locality:"Milan",
+                country:"Italy",
+            },
+            currenciesAccepted:"EUR",
         }
     }
 

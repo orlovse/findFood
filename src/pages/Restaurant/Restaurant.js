@@ -9,7 +9,7 @@ import { loadMenu } from "../../redux/menu/action";
 import { menuSelector, menuLoadingSelector, menuLoadedSelector } from "../../redux/menu/selectors";
 import { restaurantSelector, restaurantLoadingSelector, restaurantLoadedSelector } from "../../redux/restaurant/selectors";
 
-import { BasketProducts ,MenuItem } from "../../components";
+import { BasketProducts, Map ,MenuItem } from "../../components";
 
 const Restaurant = ({
         loadRestaurant, 
@@ -49,7 +49,7 @@ const Restaurant = ({
         ): (
             <>
                 <h2>Address</h2>
-                <p>{restaurant.address}</p>
+                <p>{restaurant.address.street}</p>
                 <h2>Time working</h2>
                 <p>12-24</p>
                 <p>Restaurant {restaurant.name} </p>
@@ -79,8 +79,10 @@ const Restaurant = ({
                 ))
         : menu.map((menuItem, i) => <MenuItem menuItem={menuItem} restaurantId={restaurant.id} key={i} /> )
 
+        console.log("restaurant.address", restaurant, restaurant.address, restaurant.geo)
     return (
         <>
+            <Map location={restaurant.geo} address={restaurant.address}/>
             <Grid container spacing={5}>
                 <Grid item xs={12} sm={12} lg={3} style={{textAlign: "center"}}>
                     {restaurantElem}
